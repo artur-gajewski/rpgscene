@@ -15,7 +15,7 @@ var currentX = 100;
 var currentY = 100;
 var zoomLevel = 0;
 var zoomLevelMin = -20;
-var zoomLevelMax = 10;
+var zoomLevelMax = 50;
 var mouseDownPoint = null;
 
 canvas.setWidth($('#content').width());
@@ -35,7 +35,9 @@ canvas.on('mouse:down', function(event) {
         canvas.selection = false;
         panning = true;
     }
-}).on('mouse:up', function() {
+});
+
+canvas.on('mouse:up', function() {
     if (!canvas.getActiveObject()) {
         canvas.selection = true;
         panning = false;
@@ -46,6 +48,9 @@ canvas.on('mouse:down', function(event) {
         var delta = new fabric.Point(e.e.movementX, e.e.movementY);
         canvas.relativePan(delta);
     }
+    var pointer = canvas.getPointer(e.e);
+    var distance = calculateDistace(pointer.x, pointer.y, currentX, currentY);
+    $("#distance").text("Distance: " + ((distance / grid).toFixed(1) * 5) + " feet");
 }).on('object:moving', function(options) {
   if (snap) {
     options.target.set({
@@ -60,7 +65,26 @@ canvas.on('mouse:down', function(event) {
   }
 });
 
+function calculateDistace(x1, y1, x2, y2) {
+    return Math.sqrt(Math.pow(x2*1-x1*1, 2)+Math.pow(y2*1-y1*1, 2));
+}
+
 function bindActionListeners() {
+    // Clear selections on right click
+    $('#content').bind('contextmenu', function (event) {
+        event.preventDefault();
+        if (canvas.getActiveObject()) {
+            console.log("Deselect object");
+            canvas.discardActiveObject();
+            canvas.renderAll();
+        }
+        if (canvas.getActiveGroup()) {
+            console.log("Deselect object group");
+            canvas.discardActiveGroup();
+            canvas.renderAll();
+        }
+    });
+
     // Chrome, Opera, IE scroll wheel zoom
     $("#content").bind('mousewheel', function(event) {
         event.preventDefault();
@@ -164,6 +188,13 @@ function bindActionListeners() {
             }
         }
 
+        // Toggle measurement
+        if ( event.which == 77 && event ) {
+            event.preventDefault();
+            $("#distance").toggle();
+        }
+
+
         // Disable panning mode
         if ( event.which == 32 && event ) {
             event.preventDefault();
@@ -187,6 +218,7 @@ function bindActionListeners() {
     });
 
     $(document).bind('keydown', function(event) {
+        console.log(event.which);
         // Enable panning mode
         if ( event.which == 32 && event ) {
             event.preventDefault();
@@ -220,6 +252,22 @@ function bindActionListeners() {
         if ( event.which == 66 && event ) {
             event.preventDefault();
             canvas.getActiveObject().sendToBack();
+            canvas.discardActiveObject();
+            canvas.renderAll();
+        }
+
+        // Bring active object forward
+        if ( event.which == 81 && event ) {
+            event.preventDefault();
+            canvas.getActiveObject().bringForward();
+            canvas.discardActiveObject();
+            canvas.renderAll();
+        }
+
+        // Send active object backwards
+        if ( event.which == 65 && event ) {
+            event.preventDefault();
+            canvas.getActiveObject().sendBackwards();
             canvas.discardActiveObject();
             canvas.renderAll();
         }
@@ -289,7 +337,7 @@ function unGroupObjects() {
 
 function addImage(url, width) {
     fabric.Image.fromURL(url, function (oImg) {
-    canvas.add(oImg.scaleToWidth(50));
+    canvas.add(oImg.scaleToWidth(width));
     canvas.renderAll();
 }, {"left": currentX, "top": currentY});
 }

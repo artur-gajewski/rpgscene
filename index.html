@@ -10,24 +10,15 @@
 <body>
   <div class='wrapper'>
       <div class='sidebar'>
-          <div class='title'>Maps</div>
-          <ul class='nav'>
-            <li>
-              <a onclick="openMapDialog()">Enter URL</a>
-            </li>
-            <li>
-              <a onclick="loadMap('https://farm6.staticflickr.com/5625/30103070243_6c378eb031_o.jpg')">Demo map #1</a>
-            </li>
-          </ul>
-          <div class='title'>OBJECTS</div>
-          <ul class='nav'>
-            <li>
-              <a onclick="openImageDialog()">Enter URL</a>
-            </li>
-            <li>
-              <a onclick="addImage('http://3.bp.blogspot.com/-_BQesLAXccY/VLZwRVE7PZI/AAAAAAAAAmg/AGu4D4ikIpk/s1600/goblinfemale1.png', 50)">Goblin</a>
-            </li>
-          </ul>
+        <div class='title'>Maps</div>
+        <ul class='nav'>
+          <li>
+            <a onclick="openMapDialog()">Enter URL</a>
+          </li>
+          <li>
+            <a onclick="loadMap('https://farm6.staticflickr.com/5625/30103070243_6c378eb031_o.jpg')">Demo map #1</a>
+          </li>
+        </ul>
         <div class='title'>Tools</div>
         <ul class='nav'>
           <li>
@@ -43,10 +34,94 @@
             <a onclick="unGroupObjects()">Ungroup objects</a>
           </li>
           <li>
+            <a onclick="openImageDialog()">Image from URL</a>
+          </li>
+          <li>
             <a onclick="saveScene()">Save</a>
           </li>
           <li>
             <a onclick="loadScene()">Load</a>
+          </li>
+        </ul>
+        <div class='title'>Dungeon</div>
+        <ul class='nav'>
+          <li>
+            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/dungeon_room.png', 250)">Room</a>
+          </li>
+          <li>
+            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/dungeon_straight.png', 100)">Straight corridor</a>
+          </li>
+          <li>
+            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/dungeon_left.png', 200)">Corridor to left</a>
+          </li>
+          <li>
+            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/dungeon_right.png', 200)">Corridor to right</a>
+          </li>
+          <li>
+            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/dungeon_t.png', 300)">T corridor</a>
+          </li>
+        </ul>
+        <div class='title'>Rocks</div>
+        <ul class='nav'>
+          <li>
+            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/floor1.png', 1000)">Floor 1</a>
+          </li>
+          <li>
+            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/floor2.png', 500)">Floor 2</a>
+          </li>
+          <li>
+            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/rock1.png', 250)">Cliff 1</a>
+          </li>
+          <li>
+            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/rock2.png', 250)">Cliff 2</a>
+          </li>
+          <li>
+            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/rock3.png', 250)">Cliff 3</a>
+          </li>
+          <li>
+            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/rock4.png', 250)">Cliff 4</a>
+          </li>
+          <li>
+            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/rock5.png', 250)">Cliff 5</a>
+          </li>
+          <li>
+            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/rock6.png', 250)">Cliff 6</a>
+          </li>
+          <li>
+            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/rock7.png', 250)">Cliff 7</a>
+          </li>
+          <li>
+            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/rock8.png', 250)">Cliff 8</a>
+          </li>
+        </ul>
+        <div class='title'>Nature</div>
+        <ul class='nav'>
+          <li>
+            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/branch1.png', 200)">Branch 1</a>
+          </li>
+          <li>
+            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/branch2.png', 200)">Branch 2</a>
+          </li>
+          <li>
+            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/branch3.png', 200)">Branch 3</a>
+          </li>
+          <li>
+            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/tree1.png', 200)">Tree 1</a>
+          </li>
+          <li>
+            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/tree2.png', 200)">Tree 2</a>
+          </li>
+          <li>
+            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/tree3.png', 200)">Tree 3</a>
+          </li>
+        </ul>
+        <div class='title'>Other</div>
+        <ul class='nav'>
+          <li>
+            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/bridge1.png', 200)">Bridge 1</a>
+          </li>
+          <li>
+            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/bridge2.png', 200)">Bridge 2</a>
           </li>
         </ul>
         <div class='title'>Help</div>
@@ -63,7 +138,7 @@
         </div>
       </div>
       <div id="content" class='content isOpen'>
-        <a class="button"></a>
+        <a class="button"></a><span id="distance"></span>
         <canvas id="c"></canvas>
       </div>
 
@@ -71,20 +146,24 @@
           SPACE = Hold down to enable panning with mouse.<br/>
           F = Send selected item to front.<br/>
           B = Send selected item to back.<br/>
+          Q = Send selected item forward.<br/>
+          A = Send selected item back.<br>
           C = Clone active item on top of source.<br/>
           P = Hold down and use mouse to draw with pen.<br/>
           S = Toggle snap mode.<br/>
           R = Rotate active objects 45 degrees clockwise.<br/>
+          M = Measure distance in feet from last clicked point.<br/>
           Delete or D = Remove selected items.<br/>
-          Arrow keys = Move selected object.<br/><br/>
+          Arrow keys = Move selected object.<br/><br>
           To select multiple items, hold down SHIFT and click on the items. Then you can group them.<br/><br/>
+          To deselect items, right click on mouse.<br><br>
           To set location of next objects, click on the map first.<br/><br/>
           Use mouse scroll wheel to zoom in and out.
       </div>
   </div>
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.7.17/fabric.js"></script>
-  <script src="js/index.js"></script>
+  <script src="js/index.js?version=1"></script>
   <script
   src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
   integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="

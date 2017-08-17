@@ -414,7 +414,6 @@ function openMapDialog() {
             },
             'Cancel': function () {
                 bindActionListeners();
-                $(this).find('form')[0].reset();
                 $(this).dialog('close');
                 $(this).dialog('destroy');
             }
@@ -447,7 +446,6 @@ function openImageDialog() {
             },
             'Cancel': function () {
                 bindActionListeners();
-                $(this).find('form')[0].reset();
                 $(this).dialog('close');
                 $(this).dialog('destroy');
             }

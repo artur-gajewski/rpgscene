@@ -116,9 +116,12 @@ body {
 }
 
 h1 {
-  margin: 25px 0 15px;
+  margin: 5px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   font-size: 28px;
   font-weight: 400;
+  text-align: center;
 }
 
 h2 {

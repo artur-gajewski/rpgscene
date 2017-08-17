@@ -9,128 +9,131 @@
 
 <body>
   <div class='wrapper'>
-      <div class='sidebar' id='accordion'>
-        <div class='title'>Tools</div>
-        <ul class='nav'>
-          <li>
-            <a onclick="addBlindSpot()">Add blind spot</a>
-          </li>
-          <li>
-            <a onclick="openTextInputDialog()">Add text</a>
-          </li>
-          <li>
-            <a onclick="groupObjects()">Group objects</a>
-          </li>
-          <li>
-            <a onclick="unGroupObjects()">Ungroup objects</a>
-          </li>
-          <li>
-            <a onclick="openImageDialog()">Image from URL</a>
-          </li>
-          <li>
-            <a onclick="saveScene()">Save</a>
-          </li>
-          <li>
-            <a onclick="loadScene()">Load</a>
-          </li>
-        </ul>
-        <div class='title'>Maps</div>
-        <ul class='nav'>
-          <li>
-            <a onclick="openMapDialog()">Enter URL</a>
-          </li>
-          <li>
-            <a onclick="loadMap('https://farm6.staticflickr.com/5625/30103070243_6c378eb031_o.jpg')">Demo map #1</a>
-          </li>
-        </ul>
-        <div class='title'>Dungeon</div>
-        <ul class='nav'>
-          <li>
-            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/dungeon_room.png', 250)">Room</a>
-          </li>
-          <li>
-            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/dungeon_straight.png', 100)">Straight corridor</a>
-          </li>
-          <li>
-            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/dungeon_left.png', 200)">Corridor to left</a>
-          </li>
-          <li>
-            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/dungeon_right.png', 200)">Corridor to right</a>
-          </li>
-          <li>
-            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/dungeon_t.png', 300)">T corridor</a>
-          </li>
-        </ul>
-        <div class='title'>Rocks</div>
-        <ul class='nav'>
-          <li>
-            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/floor1.png', 1000)">Floor 1</a>
-          </li>
-          <li>
-            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/floor2.png', 500)">Floor 2</a>
-          </li>
-          <li>
-            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/rock1.png', 250)">Cliff 1</a>
-          </li>
-          <li>
-            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/rock2.png', 250)">Cliff 2</a>
-          </li>
-          <li>
-            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/rock3.png', 250)">Cliff 3</a>
-          </li>
-          <li>
-            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/rock4.png', 250)">Cliff 4</a>
-          </li>
-          <li>
-            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/rock5.png', 250)">Cliff 5</a>
-          </li>
-          <li>
-            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/rock6.png', 250)">Cliff 6</a>
-          </li>
-          <li>
-            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/rock7.png', 250)">Cliff 7</a>
-          </li>
-          <li>
-            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/rock8.png', 250)">Cliff 8</a>
-          </li>
-        </ul>
-        <div class='title'>Nature</div>
-        <ul class='nav'>
-          <li>
-            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/branch1.png', 200)">Branch 1</a>
-          </li>
-          <li>
-            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/branch2.png', 200)">Branch 2</a>
-          </li>
-          <li>
-            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/branch3.png', 200)">Branch 3</a>
-          </li>
-          <li>
-            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/tree1.png', 200)">Tree 1</a>
-          </li>
-          <li>
-            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/tree2.png', 200)">Tree 2</a>
-          </li>
-          <li>
-            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/tree3.png', 200)">Tree 3</a>
-          </li>
-        </ul>
-        <div class='title'>Other</div>
-        <ul class='nav'>
-          <li>
-            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/bridge1.png', 200)">Bridge 1</a>
-          </li>
-          <li>
-            <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/bridge2.png', 200)">Bridge 2</a>
-          </li>
-        </ul>
-        <div class='title'>Help</div>
-        <div>
+      <div class='sidebar'>
+        <h1>RPG Scene</h1>
+        <div id='accordion'>
+            <div class='title'>Tools</div>
             <ul class='nav'>
               <li>
-                <a onclick="openHelpDialog()">Instructions</a>
+                <a onclick="addBlindSpot()">Add blind spot</a>
+              </li>
+              <li>
+                <a onclick="openTextInputDialog()">Add text</a>
+              </li>
+              <li>
+                <a onclick="groupObjects()">Group objects</a>
+              </li>
+              <li>
+                <a onclick="unGroupObjects()">Ungroup objects</a>
+              </li>
+              <li>
+                <a onclick="openImageDialog()">Image from URL</a>
+              </li>
+              <li>
+                <a onclick="saveScene()">Save</a>
+              </li>
+              <li>
+                <a onclick="loadScene()">Load</a>
               </li>
             </ul>
+            <div class='title'>Maps</div>
+            <ul class='nav'>
+              <li>
+                <a onclick="openMapDialog()">Enter URL</a>
+              </li>
+              <li>
+                <a onclick="loadMap('https://farm6.staticflickr.com/5625/30103070243_6c378eb031_o.jpg')">Demo map #1</a>
+              </li>
+            </ul>
+            <div class='title'>Dungeon</div>
+            <ul class='nav'>
+              <li>
+                <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/dungeon_room.png', 250)">Room</a>
+              </li>
+              <li>
+                <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/dungeon_straight.png', 100)">Straight corridor</a>
+              </li>
+              <li>
+                <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/dungeon_left.png', 200)">Corridor to left</a>
+              </li>
+              <li>
+                <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/dungeon_right.png', 200)">Corridor to right</a>
+              </li>
+              <li>
+                <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/dungeon_t.png', 300)">T corridor</a>
+              </li>
+            </ul>
+            <div class='title'>Rocks</div>
+            <ul class='nav'>
+              <li>
+                <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/floor1.png', 1000)">Floor 1</a>
+              </li>
+              <li>
+                <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/floor2.png', 500)">Floor 2</a>
+              </li>
+              <li>
+                <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/rock1.png', 250)">Cliff 1</a>
+              </li>
+              <li>
+                <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/rock2.png', 250)">Cliff 2</a>
+              </li>
+              <li>
+                <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/rock3.png', 250)">Cliff 3</a>
+              </li>
+              <li>
+                <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/rock4.png', 250)">Cliff 4</a>
+              </li>
+              <li>
+                <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/rock5.png', 250)">Cliff 5</a>
+              </li>
+              <li>
+                <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/rock6.png', 250)">Cliff 6</a>
+              </li>
+              <li>
+                <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/rock7.png', 250)">Cliff 7</a>
+              </li>
+              <li>
+                <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/rock8.png', 250)">Cliff 8</a>
+              </li>
+            </ul>
+            <div class='title'>Nature</div>
+            <ul class='nav'>
+              <li>
+                <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/branch1.png', 200)">Branch 1</a>
+              </li>
+              <li>
+                <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/branch2.png', 200)">Branch 2</a>
+              </li>
+              <li>
+                <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/branch3.png', 200)">Branch 3</a>
+              </li>
+              <li>
+                <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/tree1.png', 200)">Tree 1</a>
+              </li>
+              <li>
+                <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/tree2.png', 200)">Tree 2</a>
+              </li>
+              <li>
+                <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/tree3.png', 200)">Tree 3</a>
+              </li>
+            </ul>
+            <div class='title'>Other</div>
+            <ul class='nav'>
+              <li>
+                <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/bridge1.png', 200)">Bridge 1</a>
+              </li>
+              <li>
+                <a onclick="addImage('http://beta.rpgscene.net/blocks/artur/bridge2.png', 200)">Bridge 2</a>
+              </li>
+            </ul>
+            <div class='title'>Help</div>
+            <div>
+                <ul class='nav'>
+                  <li>
+                    <a onclick="openHelpDialog()">Instructions</a>
+                  </li>
+                </ul>
+            </div>
         </div>
       </div>
       <div id="content" class='content isOpen'>

@@ -130,6 +130,14 @@ h2 {
   margin-right: 33px;
   margin-bottom: 20px;
   padding-top: 0px;
+}
 
-
+#screenshot{
+	position:absolute;
+	border:1px solid #ccc;
+	background:#333;
+	padding:5px;
+	display:none;
+	color:#fff;
+    width: 200px;
 }

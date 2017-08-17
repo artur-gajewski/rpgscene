@@ -56,14 +56,14 @@ body {
 /* Demo Navigation */
 .title {
   font-size: 16px;
+  font-weight: normal;
   line-height: 50px;
   text-align: left;
   padding-left: 20px;
   text-transform: uppercase;
   letter-spacing: 7px;
   color: #eee;
-  border-bottom: 1px solid #222;
-  background: #2a2a2a;
+  background: #007fff;
 }
 
 .nav li a {
@@ -116,16 +116,20 @@ body {
 }
 
 h1 {
-  margin: 5px;
   margin-top: 20px;
-  margin-bottom: 20px;
   font-size: 28px;
   font-weight: 400;
   text-align: center;
 }
 
 h2 {
-  font-size: 18px;
+  font-size: 12px;
   font-weight: 400;
-  color: #999;
+  color: red;
+  text-align: right;
+  margin-right: 33px;
+  margin-bottom: 20px;
+  padding-top: 0px;
+
+
 }

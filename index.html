@@ -9,16 +9,7 @@
 
 <body>
   <div class='wrapper'>
-      <div class='sidebar'>
-        <div class='title'>Maps</div>
-        <ul class='nav'>
-          <li>
-            <a onclick="openMapDialog()">Enter URL</a>
-          </li>
-          <li>
-            <a onclick="loadMap('https://farm6.staticflickr.com/5625/30103070243_6c378eb031_o.jpg')">Demo map #1</a>
-          </li>
-        </ul>
+      <div class='sidebar' id='accordion'>
         <div class='title'>Tools</div>
         <ul class='nav'>
           <li>
@@ -41,6 +32,15 @@
           </li>
           <li>
             <a onclick="loadScene()">Load</a>
+          </li>
+        </ul>
+        <div class='title'>Maps</div>
+        <ul class='nav'>
+          <li>
+            <a onclick="openMapDialog()">Enter URL</a>
+          </li>
+          <li>
+            <a onclick="loadMap('https://farm6.staticflickr.com/5625/30103070243_6c378eb031_o.jpg')">Demo map #1</a>
           </li>
         </ul>
         <div class='title'>Dungeon</div>
@@ -131,10 +131,6 @@
                 <a onclick="openHelpDialog()">Instructions</a>
               </li>
             </ul>
-        </div>
-        <div class="patreon">
-            <a href="https://www.patreon.com/bePatron?u=4285495" data-patreon-widget-type="become-patron-button"></a>
-            <script async src="https://c6.patreon.com/becomePatronButton.bundle.js"></script>
         </div>
       </div>
       <div id="content" class='content isOpen'>

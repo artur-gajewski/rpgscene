@@ -2,6 +2,12 @@ $(document).ready(function() {
   $('.button').on('click', function() {
     $('.content').toggleClass('isOpen');
   });
+
+  $(function() {
+      $( "#accordion" ).accordion({
+          heightStyle: "content"
+      });
+  });
 });
 
 var canvas = new fabric.Canvas('c', { selection: true });

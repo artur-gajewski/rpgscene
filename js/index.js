@@ -12,7 +12,7 @@ $(document).ready(function() {
   });
 });
 
-var canvas = new fabric.Canvas('c', { selection: true });
+var canvas = new fabric.Canvas('c', { selection: true, preserveObjectStacking: true });
 var panning = false;
 var drawing = false;
 var snap = false;
@@ -320,7 +320,7 @@ function groupObjects() {
             canvas.discardActiveGroup();
             objectsInGroup.forEach(function(object) {
               canvas.remove(object);
-          });
+            });
             canvas.add(newgroup);
             canvas.renderAll();
         });

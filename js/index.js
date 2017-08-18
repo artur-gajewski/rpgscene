@@ -154,7 +154,43 @@ function bindActionListeners() {
 
         }
 
+        if (canvas.getActiveGroup()) {
+            // Group objects
+            if ( event.which == 71 && event ) {
+                event.preventDefault();
+                groupObjects();
+            }
+        }
+
         if (canvas.getActiveObject()) {
+            // Ungroup objects
+            if ( event.which == 85 && event ) {
+                event.preventDefault();
+                unGroupObjects();
+            }
+
+            // Lock object
+            if ( event.which == 76 && event ) {
+                event.preventDefault();
+                canvas.getActiveObject().lockMovementX = true;
+                canvas.getActiveObject().lockMovementY = true;
+                canvas.getActiveObject().lockScalingX = true;
+                canvas.getActiveObject().lockScalingX = true;
+                canvas.getActiveObject().lockRotation = true;
+                canvas.renderAll();
+            }
+
+            // Open object
+            if ( event.which == 76 && event ) {
+                event.preventDefault();
+                canvas.getActiveObject().lockMovementX = false;
+                canvas.getActiveObject().lockMovementY = false;
+                canvas.getActiveObject().lockScalingX = false;
+                canvas.getActiveObject().lockScalingX = false;
+                canvas.getActiveObject().lockRotation = false;
+                canvas.renderAll();
+            }
+
             // Rotate object
             if ( event.which == 82 && event ) {
                 event.preventDefault();
@@ -202,7 +238,6 @@ function bindActionListeners() {
             $("#distance").toggle();
         }
 
-
         // Disable panning mode
         if ( event.which == 32 && event ) {
             event.preventDefault();
@@ -226,7 +261,6 @@ function bindActionListeners() {
     });
 
     $(document).bind('keydown', function(event) {
-        console.log(event.which);
         // Enable panning mode
         if ( event.which == 32 && event ) {
             event.preventDefault();

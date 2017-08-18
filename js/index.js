@@ -172,23 +172,13 @@ function bindActionListeners() {
             // Lock object
             if ( event.which == 76 && event ) {
                 event.preventDefault();
-                canvas.getActiveObject().lockMovementX = true;
-                canvas.getActiveObject().lockMovementY = true;
-                canvas.getActiveObject().lockScalingX = true;
-                canvas.getActiveObject().lockScalingX = true;
-                canvas.getActiveObject().lockRotation = true;
-                canvas.renderAll();
+                lockObject();
             }
 
             // Open object
-            if ( event.which == 76 && event ) {
+            if ( event.which == 79 && event ) {
                 event.preventDefault();
-                canvas.getActiveObject().lockMovementX = false;
-                canvas.getActiveObject().lockMovementY = false;
-                canvas.getActiveObject().lockScalingX = false;
-                canvas.getActiveObject().lockScalingX = false;
-                canvas.getActiveObject().lockRotation = false;
-                canvas.renderAll();
+                openObject();
             }
 
             // Rotate object
@@ -345,6 +335,35 @@ function keepPositionInBounds() {
 
     canvas.relativePan(new fabric.Point(0, 0));
 }
+
+
+function lockObject() {
+   var activeObject = canvas.getActiveObject();
+   if (activeObject) {
+       activeObject.set({
+           "lockMovementX": true,
+           "lockMovementY": true,
+           "lockScalingX": true,
+           "lockScalingY": true,
+           "lockRotation": true
+       });
+       canvas.renderAll();
+   }
+};
+
+function openObject() {
+   var activeObject = canvas.getActiveObject();
+   if (activeObject) {
+       activeObject.set({
+           "lockMovementX": false,
+           "lockMovementY": false,
+           "lockScalingX": false,
+           "lockScalingY": false,
+           "lockRotation": false
+       });
+       canvas.renderAll();
+   }
+};
 
 function groupObjects() {
     var activegroup = canvas.getActiveGroup();

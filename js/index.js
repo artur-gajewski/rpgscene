@@ -15,11 +15,11 @@ $(document).ready(function() {
 var canvas = new fabric.Canvas('c', { selection: true, preserveObjectStacking: true });
 var panning = false;
 var drawing = false;
-var drawingmode = false;
+var drawingMode = false;
 var snap = false;
 var grid = 50; // How many pixels is one grid on map
-var canvasScale = 1; //global
-var SCALE_FACTOR = 1.01; //global 18/05/2015
+var canvasScale = 1;
+var SCALE_FACTOR = 1.01;
 var currentX = 100;
 var currentY = 100;
 var zoomLevel = 0;
@@ -37,7 +37,7 @@ canvas.on('mouse:down', function(event) {
     var pointer = canvas.getPointer(event.e);
     currentX = pointer.x;
     currentY = pointer.y;
-    if (!drawingmode && !canvas.getActiveObject() && !canvas.getActiveGroup()) {
+    if (!drawingMode && !canvas.getActiveObject() && !canvas.getActiveGroup()) {
         canvas.selection = false;
         panning = true;
     }
@@ -240,13 +240,13 @@ function bindActionListeners() {
             event.preventDefault();
             if (canvas.isDrawingMode == false) {
                 panning = false;
-                drawingmode = true;
+                drawingMode = true;
                 canvas.isDrawingMode = true;
                 canvas.freeDrawingBrush.color = 'Red';
                 canvas.freeDrawingBrush.width = 5;
             } else {
                 panning = false;
-                drawingmode = false;
+                drawingMode = false;
                 canvas.isDrawingMode = false;
             }
         }
@@ -410,7 +410,7 @@ function addImage(url, width) {
         canvas.add(oImg.scaleToWidth(width));
         canvas.renderAll();
         $("body").removeClass("loading");
-        
+
     }, {"left": currentX, "top": currentY});
 }
 
@@ -647,15 +647,8 @@ function openHelpDialog() {
  *
  */
 this.screenshotPreview = function(){
-	/* CONFIG */
-
-		xOffset = 10;
-		yOffset = 30;
-
-		// these 2 variable determine popup's distance from the cursor
-		// you might want to adjust to get the right result
-
-	/* END CONFIG */
+    xOffset = 10;
+	yOffset = 30;
 	$("a.screenshot").hover(function(e){
 		this.t = this.title;
 		this.title = "";

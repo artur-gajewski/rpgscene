@@ -15,31 +15,29 @@ $(document).ready(function() {
 var canvas = new fabric.Canvas('c', { selection: true, preserveObjectStacking: true });
 var panning = false;
 var drawing = false;
+var drawingmode = false;
 var snap = false;
 var grid = 50; // How many pixels is one grid on map
 var canvasScale = 1; //global
-var SCALE_FACTOR = 1.01;//global 18/05/2015
+var SCALE_FACTOR = 1.01; //global 18/05/2015
 var currentX = 100;
 var currentY = 100;
 var zoomLevel = 0;
 var zoomLevelMin = -20;
 var zoomLevelMax = 50;
 var mouseDownPoint = null;
+var currentCanvasId = null;
 
 canvas.setWidth($('#content').width());
 canvas.setHeight($('#content').height());
 
 bindActionListeners();
 
-$("#draw").click(function(){
-    canvas.isDrawingMode = true;
-});
-
 canvas.on('mouse:down', function(event) {
     var pointer = canvas.getPointer(event.e);
     currentX = pointer.x;
     currentY = pointer.y;
-    if (!canvas.getActiveObject() && !canvas.getActiveGroup()) {
+    if (!drawingmode && !canvas.getActiveObject() && !canvas.getActiveGroup()) {
         canvas.selection = false;
         panning = true;
     }
@@ -73,21 +71,16 @@ canvas.on('mouse:up', function() {
   }
 });
 
-function calculateDistace(x1, y1, x2, y2) {
-    return Math.sqrt(Math.pow(x2*1-x1*1, 2)+Math.pow(y2*1-y1*1, 2));
-}
-
 function bindActionListeners() {
+
     // Clear selections on right click
     $('#content').bind('contextmenu', function (event) {
         event.preventDefault();
         if (canvas.getActiveObject()) {
-            console.log("Deselect object");
             canvas.discardActiveObject();
             canvas.renderAll();
         }
         if (canvas.getActiveGroup()) {
-            console.log("Deselect object group");
             canvas.discardActiveGroup();
             canvas.renderAll();
         }
@@ -132,27 +125,6 @@ function bindActionListeners() {
     });
 
     $(document).bind('keyup', function(event) {
-        // Remove active object and object groups
-        if ( (event.which == 46 || event.which == 68) && event) {
-            event.preventDefault();
-            var activeObject = canvas.getActiveObject();
-            var activeGroup = canvas.getActiveGroup();
-            if (activeObject) {
-                if (confirm('Are you sure you want to delete this?')) {
-                    canvas.remove(activeObject);
-                }
-            }
-            else if (activeGroup) {
-                if (confirm('Are you sure you want to delete these?')) {
-                    var objectsInGroup = activeGroup.getObjects();
-                    canvas.discardActiveGroup();
-                    objectsInGroup.forEach(function(object) {
-                    canvas.remove(object);
-                    });
-                }
-            }
-
-        }
 
         if (canvas.getActiveGroup()) {
             // Group objects
@@ -222,6 +194,26 @@ function bindActionListeners() {
             }
         }
 
+        // Remove active object and object groups
+        if ( (event.which == 46 || event.which == 68) && event) {
+            event.preventDefault();
+            var activeObject = canvas.getActiveObject();
+            var activeGroup = canvas.getActiveGroup();
+            if (activeObject) {
+                if (confirm('Are you sure you want to delete this?')) {
+                    canvas.remove(activeObject);
+                }
+            } else if (activeGroup) {
+                if (confirm('Are you sure you want to delete these?')) {
+                    var objectsInGroup = activeGroup.getObjects();
+                    canvas.discardActiveGroup();
+                    objectsInGroup.forEach(function(object) {
+                    canvas.remove(object);
+                    });
+                }
+            }
+        }
+
         // Toggle measurement
         if ( event.which == 77 && event ) {
             event.preventDefault();
@@ -234,12 +226,6 @@ function bindActionListeners() {
             panning = false;
         }
 
-        // Disable drawing mode
-        if ( event.which == 80 && event ) {
-            event.preventDefault();
-            canvas.isDrawingMode = false;
-        }
-
         // Clone an object
         if ( event.which == 67 && event ) {
             event.preventDefault();
@@ -248,9 +234,23 @@ function bindActionListeners() {
                 canvas.add(object);
             }
         }
-    });
 
-    $(document).bind('keydown', function(event) {
+        // toggle drawing mode
+        if ( event.which == 80 && event ) {
+            event.preventDefault();
+            if (canvas.isDrawingMode == false) {
+                panning = false;
+                drawingmode = true;
+                canvas.isDrawingMode = true;
+                canvas.freeDrawingBrush.color = 'Red';
+                canvas.freeDrawingBrush.width = 5;
+            } else {
+                panning = false;
+                drawingmode = false;
+                canvas.isDrawingMode = false;
+            }
+        }
+
         // Enable panning mode
         if ( event.which == 32 && event ) {
             event.preventDefault();
@@ -261,15 +261,6 @@ function bindActionListeners() {
         if ( event.which == 83 && event ) {
             event.preventDefault();
             snap = snap != true;
-        }
-
-        // Enable drawing mode
-        if ( event.which == 80 && event ) {
-            event.preventDefault();
-            panning = false;
-            canvas.isDrawingMode = true;
-            canvas.freeDrawingBrush.color = 'Red';
-            canvas.freeDrawingBrush.width = 5;
         }
 
         // Bring active object to front
@@ -304,6 +295,19 @@ function bindActionListeners() {
             canvas.renderAll();
         }
 
+        // Zoom in one level
+        if ( event.which == 90 && event ) {
+            event.preventDefault();
+            var point = new fabric.Point(canvas.getWidth() / 2, canvas.getHeight() / 2);
+            zoomIn(point);
+        }
+
+        // Zoom out one level
+        if ( event.which == 88 && event ) {
+            event.preventDefault();
+            var point = new fabric.Point(canvas.getWidth() / 2, canvas.getHeight() / 2);
+            zoomOut(point);
+        }
     });
 }
 
@@ -323,6 +327,10 @@ function zoomOut(point) {
     }
 }
 
+function calculateDistace(x1, y1, x2, y2) {
+    return Math.sqrt(Math.pow(x2*1-x1*1, 2)+Math.pow(y2*1-y1*1, 2));
+}
+
 function keepPositionInBounds() {
     var zoom = canvas.getZoom();
     var xMin = (2 - zoom) * canvas.getWidth() / 2;
@@ -335,7 +343,6 @@ function keepPositionInBounds() {
 
     canvas.relativePan(new fabric.Point(0, 0));
 }
-
 
 function lockObject() {
    var activeObject = canvas.getActiveObject();
@@ -397,10 +404,14 @@ function unGroupObjects() {
 };
 
 function addImage(url, width) {
+    $("body").addClass("loading");
+
     fabric.Image.fromURL(url, function (oImg) {
-    canvas.add(oImg.scaleToWidth(width));
-    canvas.renderAll();
-}, {"left": currentX, "top": currentY});
+        canvas.add(oImg.scaleToWidth(width));
+        canvas.renderAll();
+        $("body").removeClass("loading");
+        
+    }, {"left": currentX, "top": currentY});
 }
 
 function addText(text, size) {
@@ -421,11 +432,14 @@ function addBlindSpot() {
 }
 
 function loadMap(url) {
+    $("body").addClass("loading");
+
     fabric.Image.fromURL(url, function(oImg){
         canvas.setBackgroundImage(oImg, canvas.renderAll.bind(canvas), {
             backgroundImageOpacity: 0.5,
             backgroundImageStretch: false
         });
+        $("body").removeClass("loading");
     });
 
     canvas.setWidth($('#content').width());
@@ -436,21 +450,88 @@ function saveAsPng() {
     window.open(canvas.toDataURL('png'));
 }
 
-function saveScene() {
+function saveSceneDialog() {
     var json = JSON.stringify( canvas.toJSON() );
-    var sceneStorage = window.localStorage;
-    sceneStorage.setItem('scene', json);
-    alert("Scene was saved in browser memory.");
+    //var sceneStorage = window.localStorage;
+    //sceneStorage.setItem('scene', json);
+    $.get( "http://storage.rpgscene.net/create.php", function( id ) {
+        $.ajax({
+          type: "POST",
+          url: "http://storage.rpgscene.net/save.php",
+          data: {
+             id: id,
+             json
+          }
+        }).done(function(sceneId) {
+          currentCanvasId = sceneId;
+          $('<form><input id="mapid" type="text" style="z-index:10000; width: 50%" name="mapid" value="' + sceneId + '"><br></form>').dialog({
+              modal: true,
+              title: "Scene was saved. Refer to the following ID to load it again!",
+              width: "50%",
+              maxWidth: "600px",
+              buttons: {
+                  'OK': function () {
+                      bindActionListeners();
+                      $(this).dialog('close');
+                      $(this).dialog('destroy');
+                  }
+              }
+          });
+        });
+    });
+
+    $(document).off();
+
+    $(document).bind('keypress', function(event) {
+        // Disable Enter key press
+        if ( event.which == 13 && event ) {
+            event.preventDefault();
+        }
+    });
 }
 
-function loadScene() {
-    if (confirm('Are you sure you want to discard current scene?')) {
-        var sceneStorage = window.localStorage;
-        var json = sceneStorage.getItem('scene');
-        canvas.loadFromJSON(json);
-        canvas.renderAll();
-        canvas.calculateOffset();
-    }
+function loadSceneDialog() {
+    $('<form><input id="mapid" type="text" style="z-index:10000; width: 50%" name="mapid"><br></form>').dialog({
+        modal: true,
+        title: "Enter map ID",
+        width: "50%",
+        maxWidth: "600px",
+        buttons: {
+            'OK': function () {
+                var mapid = $('input[name="mapid"]').val();
+
+                bindActionListeners();
+                $(this).dialog('close');
+                $(this).dialog('destroy');
+
+                $.ajax({
+                  type: "GET",
+                  url: "http://storage.rpgscene.net/load.php",
+                  data: {
+                     id: mapid
+                  }
+                }).done(function(json) {
+                    canvas.loadFromJSON(json);
+                    canvas.renderAll();
+                    canvas.calculateOffset();
+                });
+            },
+            'Cancel': function () {
+                bindActionListeners();
+                $(this).dialog('close');
+                $(this).dialog('destroy');
+            }
+        }
+    });
+
+    $(document).off();
+
+    $(document).bind('keydown', function(event) {
+        // Disable Enter key press
+        if ( event.which == 13 && event ) {
+            event.preventDefault();
+        }
+    });
 }
 
 function openMapDialog() {
@@ -556,8 +637,6 @@ function openHelpDialog() {
     });
 }
 
-
-
 /*
  * Url preview script
  * powered by jQuery (http://www.jquery.com)
@@ -567,7 +646,6 @@ function openHelpDialog() {
  * for more info visit http://cssglobe.com/post/1695/easiest-tooltip-and-image-preview-using-jquery
  *
  */
-
 this.screenshotPreview = function(){
 	/* CONFIG */
 

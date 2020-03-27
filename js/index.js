@@ -452,33 +452,23 @@ function saveAsPng() {
 
 function saveSceneDialog() {
     var json = JSON.stringify( canvas.toJSON() );
-    //var sceneStorage = window.localStorage;
-    //sceneStorage.setItem('scene', json);
-    $.get( "http://storage.rpgscene.net/create.php", function( id ) {
-        $.ajax({
-          type: "POST",
-          url: "http://storage.rpgscene.net/save.php",
-          data: {
-             id: id,
-             json
+    var sceneStorage = window.localStorage;
+    var sceneId = Math.floor(100000 + Math.random() * 900000)
+    sceneStorage.setItem(sceneId, json);
+
+  $('<form><input id="sceneid" type="text" style="z-index:10000; width: 50%" name="sceneid" value="' + sceneId + '"><br></form>').dialog({
+      modal: true,
+      title: "Scene was saved. Refer to the following ID to load it again!",
+      width: "50%",
+      maxWidth: "600px",
+      buttons: {
+          'OK': function () {
+              bindActionListeners();
+              $(this).dialog('close');
+              $(this).dialog('destroy');
           }
-        }).done(function(sceneId) {
-          currentCanvasId = sceneId;
-          $('<form><input id="mapid" type="text" style="z-index:10000; width: 50%" name="mapid" value="' + sceneId + '"><br></form>').dialog({
-              modal: true,
-              title: "Scene was saved. Refer to the following ID to load it again!",
-              width: "50%",
-              maxWidth: "600px",
-              buttons: {
-                  'OK': function () {
-                      bindActionListeners();
-                      $(this).dialog('close');
-                      $(this).dialog('destroy');
-                  }
-              }
-          });
-        });
-    });
+      }
+  });
 
     $(document).off();
 
@@ -491,30 +481,27 @@ function saveSceneDialog() {
 }
 
 function loadSceneDialog() {
-    $('<form><input id="mapid" type="text" style="z-index:10000; width: 50%" name="mapid"><br></form>').dialog({
+    var sceneStorage = window.localStorage;
+
+    $('<form><input id="sceneid" type="text" style="z-index:10000; width: 50%" name="sceneid"><br></form>').dialog({
         modal: true,
-        title: "Enter map ID",
+        title: "Enter scene ID",
         width: "50%",
         maxWidth: "600px",
         buttons: {
             'OK': function () {
-                var mapid = $('input[name="mapid"]').val();
+                var sceneId = $('input[name="sceneid"]').val();
 
                 bindActionListeners();
                 $(this).dialog('close');
                 $(this).dialog('destroy');
 
-                $.ajax({
-                  type: "GET",
-                  url: "http://storage.rpgscene.net/load.php",
-                  data: {
-                     id: mapid
-                  }
-                }).done(function(json) {
-                    canvas.loadFromJSON(json);
-                    canvas.renderAll();
-                    canvas.calculateOffset();
-                });
+                var json = sceneStorage.getItem(sceneId);
+
+                canvas.loadFromJSON(json);
+                canvas.renderAll();
+                //canvas.calculateOffset();
+
             },
             'Cancel': function () {
                 bindActionListeners();
@@ -535,7 +522,7 @@ function loadSceneDialog() {
 }
 
 function openMapDialog() {
-    $('<form><input id="mapurl" type="text" style="z-index:10000; width: 90%" name="url"><br></form>').dialog({
+    $('<form><br/><input id="mapurl" type="text" style="z-index:10000; width: 90%" name="url"><br></form>').dialog({
         modal: true,
         title: "Enter map URL",
         width: "50%",
@@ -567,7 +554,7 @@ function openMapDialog() {
 }
 
 function openImageDialog() {
-    $('<form><input id="mapurl" type="text" style="z-index:10000; width: 90%" name="url"><br></form>').dialog({
+    $('<form><br/><input id="mapurl" type="text" style="z-index:10000; width: 90%" name="url"><br></form>').dialog({
         modal: true,
         title: "Enter image URL",
         width: "50%",
@@ -599,7 +586,7 @@ function openImageDialog() {
 }
 
 function openTextInputDialog() {
-    $('<form><input type="text" style="z-index:10000; width: 90%" name="maptext"><br></form>').dialog({
+    $('<form><br/><input type="text" style="z-index:10000; width: 90%" name="maptext"><br></form>').dialog({
         modal: true,
         title: "Enter text",
         width: "50%",
@@ -621,12 +608,33 @@ function openTextInputDialog() {
     });
 
     $(document).off();
+
+    $(document).bind('keydown', function(event) {
+        // Disable Enter key press
+        if ( event.which == 13 && event ) {
+            event.preventDefault();
+        }
+    });
 }
 
 function openHelpDialog() {
     $('#help-dialog').dialog({
         modal: true,
         title: "Key mappings and help",
+        width: "50%",
+        maxWidth: "600px",
+        buttons: {
+            'OK': function () {
+                $(this).dialog('close');
+            }
+        }
+    });
+}
+
+function openCreditsDialog() {
+    $('#credits-dialog').dialog({
+        modal: true,
+        title: "Credits",
         width: "50%",
         maxWidth: "600px",
         buttons: {

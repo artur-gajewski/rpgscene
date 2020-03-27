@@ -124,6 +124,14 @@ function bindActionListeners() {
         bindActionListeners();
     });
 
+    $(document).bind('keydown', function(event) {
+       // Enable panning mode
+        if ( event.which == 32 && event ) {
+            event.preventDefault();
+            panning = true;
+        }
+    });
+
     $(document).bind('keyup', function(event) {
         if (canvas.getActiveGroup()) {
             // Group objects
@@ -248,12 +256,6 @@ function bindActionListeners() {
                 drawingMode = false;
                 canvas.isDrawingMode = false;
             }
-        }
-
-        // Enable panning mode
-        if ( event.which == 32 && event ) {
-            event.preventDefault();
-            panning = true;
         }
 
         // Enable snap

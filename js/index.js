@@ -419,7 +419,7 @@ function addText(text, size) {
     canvas.add(text);
 }
 
-function addBlindSpot() {
+function addBlindBox() {
     var rect = new fabric.Rect({
       left: currentX,
       top: currentY,
@@ -429,6 +429,17 @@ function addBlindSpot() {
     });
     canvas.add(rect);
     rect.bringToFront();
+}
+
+function addBlindCircle() {
+    var circle = new fabric.Circle({
+        left: currentX,
+        top: currentY,
+        fill: 'black',
+        radius: 50,
+    });
+    canvas.add(circle);
+    circle.bringToFront();
 }
 
 function loadMap(url) {

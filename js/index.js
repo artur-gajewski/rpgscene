@@ -125,7 +125,6 @@ function bindActionListeners() {
     });
 
     $(document).bind('keyup', function(event) {
-
         if (canvas.getActiveGroup()) {
             // Group objects
             if ( event.which == 71 && event ) {

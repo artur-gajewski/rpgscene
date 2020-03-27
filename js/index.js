@@ -415,7 +415,7 @@ function addImage(url, width) {
 }
 
 function addText(text, size) {
-    var text = new fabric.IText(text, { fontSize: size, left: currentX, top: currentY });
+    var text = new fabric.IText(" " + text +" ", { textBackgroundColor: '#fff', shadow: 'rgba(0,0,0,0.3) 5px 5px 5px', fontSize: size, left: currentX, top: currentY });
     canvas.add(text);
 }
 

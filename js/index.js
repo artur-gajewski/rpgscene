@@ -414,8 +414,13 @@ function addImage(url, width) {
     }, {"left": currentX, "top": currentY});
 }
 
-function addText(text, size) {
+function addStyledText(text, size) {
     var text = new fabric.IText(" " + text +" ", { textBackgroundColor: '#fff', shadow: 'rgba(0,0,0,0.3) 5px 5px 5px', fontSize: size, left: currentX, top: currentY });
+    canvas.add(text);
+}
+
+function addText(text, size) {
+    var text = new fabric.IText(" " + text +" ", { fontSize: size, left: currentX, top: currentY });
     canvas.add(text);
 }
 
@@ -596,7 +601,7 @@ function openImageDialog() {
     });
 }
 
-function openTextInputDialog() {
+function openTextInputDialog(styled = false) {
     $('<form><br/><input type="text" style="z-index:10000; width: 90%" name="maptext"><br></form>').dialog({
         modal: true,
         title: "Enter text",
@@ -605,7 +610,7 @@ function openTextInputDialog() {
         buttons: {
             'OK': function () {
                 var text = $('input[name="maptext"]').val();
-                addText(text, 20);
+                styled ? addStyledText(text, 20) : addText(text, 20);
                 bindActionListeners();
                 $(this).dialog('close');
                 $(this).dialog('destroy');

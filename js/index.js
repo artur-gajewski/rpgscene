@@ -494,6 +494,79 @@ function addAspectWithInvokes(text, size, invokeAmount) {
     canvas.add(text);
 }
 
+function rollFateDice() {
+    var die1 = new fabric.Textbox(getRandomFateDice(), {
+        width: 50,
+        textAlign: 'center',
+        fontSize: 40,
+        left: currentX + (60 * 0),
+        top: currentY,
+        backgroundColor: '#007fff',
+        fill: 'white',
+        minWidth: 50,
+        shadow: 'rgba(0,0,0,0.3) 5px 5px 5px',
+        fontFamily: 'Comic Sans'
+    });
+
+    var die2 = new fabric.Textbox(getRandomFateDice(), {
+        width: 50,
+        textAlign: 'center',
+        fontSize: 40,
+        left: currentX + (60 * 1),
+        top: currentY,
+        backgroundColor: '#007fff',
+        fill: 'white',
+        minWidth: 50,
+        shadow: 'rgba(0,0,0,0.3) 5px 5px 5px',
+        fontFamily: 'Comic Sans'
+    });
+
+    var die3 = new fabric.Textbox(getRandomFateDice(), {
+        width: 50,
+        textAlign: 'center',
+        fontSize: 40,
+        left: currentX + (60 * 2),
+        top: currentY,
+        backgroundColor: '#007fff',
+        fill: 'white',
+        minWidth: 50,
+        shadow: 'rgba(0,0,0,0.3) 5px 5px 5px',
+        fontFamily: 'Comic Sans'
+    });
+
+    var die4 = new fabric.Textbox(getRandomFateDice(), {
+        width: 50,
+        textAlign: 'center',
+        fontSize: 40,
+        left: currentX + (60 * 3),
+        top: currentY,
+        backgroundColor: '#007fff',
+        fill: 'white',
+        minWidth: 50,
+        shadow: 'rgba(0,0,0,0.3) 5px 5px 5px',
+        fontFamily: 'Comic Sans'
+    });
+
+    //group all the die together
+        var alltogetherObj = new fabric.Group(
+            [die1, die2, die3, die4],
+            {
+                originX:'center',
+                originY:'center'
+            }
+        );
+
+        canvas.add(alltogetherObj);
+
+}
+
+function getRandomFateDice() {
+    var number = Math.floor(Math.random() * Math.floor(3));
+    if (number == 0) return '-';
+    if (number == 1) return ' ';
+    if (number == 2) return '+';
+}
+
 function addInvokeBox() {
     var rect = new fabric.Rect({
         left: currentX,

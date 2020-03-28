@@ -37,10 +37,10 @@ canvas.on('mouse:down', function(event) {
     var pointer = canvas.getPointer(event.e);
     currentX = pointer.x;
     currentY = pointer.y;
-    if (!drawingMode && !canvas.getActiveObject() && !canvas.getActiveGroup()) {
-        canvas.selection = false;
-        panning = true;
-    }
+    //if (!drawingMode && !canvas.getActiveObject() && !canvas.getActiveGroup()) {
+    //    canvas.selection = false;
+    //    panning = true;
+    //}
 });
 
 canvas.on('mouse:up', function() {

@@ -464,6 +464,36 @@ function addAspect(text, size) {
     canvas.add(text);
 }
 
+function addAspectWithInvokes(text, size, invokeAmount) {
+    var text = new fabric.Textbox("\n" + text + "\n", {
+        width: 200,
+        textAlign: 'center',
+        fontSize: size,
+        left: currentX,
+        top: currentY + 30,
+        backgroundColor: 'white',
+        maxWidth: 300,
+        minWidth: 100,
+        shadow: 'rgba(0,0,0,0.3) 5px 5px 5px'
+    });
+
+    for (i = 0; i < invokeAmount; i++) {
+        var rect = new fabric.Rect({
+            left: currentX + (30 * i),
+            top: currentY,
+            fill: 'white',
+            width: 25,
+            height: 25,
+            stroke: 'black',
+            strokeWidth: 1,
+            shadow: 'rgba(0,0,0,0.3) 5px 5px 5px'
+        });
+        canvas.add(rect);
+    }
+
+    canvas.add(text);
+}
+
 function addInvokeBox() {
     var rect = new fabric.Rect({
         left: currentX,
@@ -679,7 +709,7 @@ function openTextInputDialog(styled = false) {
     });
 }
 
-function openAspectInputDialog(styled = false) {
+function openAspectInputDialog(invokeAmount) {
     $('<form><br/><input type="text" style="z-index:10000; width: 90%" name="maptext"><br></form>').dialog({
         modal: true,
         title: "Aspect phrase",
@@ -688,7 +718,7 @@ function openAspectInputDialog(styled = false) {
         buttons: {
             'OK': function () {
                 var text = $('input[name="maptext"]').val();
-                addAspect(text, 20);
+                addAspectWithInvokes(text, 20, invokeAmount);
                 bindActionListeners();
                 $(this).dialog('close');
                 $(this).dialog('destroy');

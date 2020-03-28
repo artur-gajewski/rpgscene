@@ -448,6 +448,51 @@ function addBlindCircle() {
     circle.bringToFront();
 }
 
+function addAspect(text, size) {
+    var text = new fabric.Textbox(text, {
+        width: 200,
+        textAlign: 'center',
+        fontSize: size,
+        left: currentX,
+        top: currentY,
+        backgroundColor: 'white',
+        maxWidth: 300,
+        minWidth: 100,
+        shadow: 'rgba(0,0,0,0.3) 5px 5px 5px'
+    });
+
+    canvas.add(text);
+}
+
+function addInvokeBox() {
+    var rect = new fabric.Rect({
+        left: currentX,
+        top: currentY,
+        fill: 'white',
+        width: 25,
+        height: 25,
+        stroke: 'black',
+        strokeWidth: 1,
+        shadow: 'rgba(0,0,0,0.3) 5px 5px 5px'
+    });
+    canvas.add(rect);
+    rect.bringToFront();
+}
+
+function addPoint() {
+    var circle = new fabric.Circle({
+        left: currentX,
+        top: currentY,
+        fill: 'yellow',
+        radius: 25,
+        stroke: 'black',
+        strokeWidth: 1,
+        shadow: 'rgba(0,0,0,0.3) 5px 5px 5px'
+    });
+    canvas.add(circle);
+    circle.bringToFront();
+}
+
 function loadMap(url) {
     $("body").addClass("loading");
 
@@ -612,6 +657,38 @@ function openTextInputDialog(styled = false) {
             'OK': function () {
                 var text = $('input[name="maptext"]').val();
                 styled ? addStyledText(text, 20) : addText(text, 20);
+                bindActionListeners();
+                $(this).dialog('close');
+                $(this).dialog('destroy');
+            },
+            'Cancel': function () {
+                bindActionListeners();
+                $(this).dialog('close');
+                $(this).dialog('destroy');
+            }
+        }
+    });
+
+    $(document).off();
+
+    $(document).bind('keydown', function(event) {
+        // Disable Enter key press
+        if ( event.which == 13 && event ) {
+            event.preventDefault();
+        }
+    });
+}
+
+function openAspectInputDialog(styled = false) {
+    $('<form><br/><input type="text" style="z-index:10000; width: 90%" name="maptext"><br></form>').dialog({
+        modal: true,
+        title: "Aspect phrase",
+        width: "50%",
+        maxWidth: "600px",
+        buttons: {
+            'OK': function () {
+                var text = $('input[name="maptext"]').val();
+                addAspect(text, 20);
                 bindActionListeners();
                 $(this).dialog('close');
                 $(this).dialog('destroy');

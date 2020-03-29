@@ -615,6 +615,8 @@ function saveAsPng() {
     window.open(canvas.toDataURL('png'));
 }
 
+
+
 function saveSceneDialog() {
     var json = JSON.stringify( canvas.toJSON() );
     var sceneStorage = window.localStorage;

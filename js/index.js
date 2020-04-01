@@ -513,7 +513,7 @@ function addFCSheet() {
 
     var text = new fabric.Textbox(sheet, {
         width: 400,
-        textAlign: 'center',
+        textAlign: 'left',
         fontSize: 14,
         left: currentX,
         top: currentY,

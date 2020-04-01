@@ -199,6 +199,8 @@ function bindActionListeners() {
                 canvas.getActiveObject().setCoords();
                 canvas.renderAll();
             }
+
+
         }
 
         // Remove active object and object groups
@@ -448,14 +450,120 @@ function addBlindCircle() {
     circle.bringToFront();
 }
 
-function addAspect(text, size) {
-    var text = new fabric.Textbox(text, {
+function addAspect() {
+    var text = new fabric.Textbox("\n\n", {
         width: 200,
         textAlign: 'center',
-        fontSize: size,
+        fontSize: 20,
         left: currentX,
         top: currentY,
-        backgroundColor: 'white',
+        backgroundColor: '#FFFFA5',
+        maxWidth: 300,
+        minWidth: 100,
+        shadow: 'rgba(0,0,0,0.3) 5px 5px 5px'
+    });
+
+    canvas.add(text);
+}
+
+function addBoost() {
+    var text = new fabric.Textbox("\n\n", {
+        width: 200,
+        textAlign: 'center',
+        fontSize: 20,
+        left: currentX,
+        top: currentY,
+        backgroundColor: '#a1d4ec',
+        maxWidth: 300,
+        minWidth: 100,
+        shadow: 'rgba(0,0,0,0.3) 5px 5px 5px'
+    });
+
+    canvas.add(text);
+}
+
+function addFCSheet() {
+    var sheet = "\n" +
+        "   NAME\n" +
+        "   REFRESH: 3\n" +
+        "\n" +
+        "   ASPECTS\n" +
+        "     High Concept: \n" +
+        "     Trouble: \n" +
+        "     \n" +
+        "     \n" +
+        "\n" +
+        "   SKILLS\n" +
+        "     Great (+4): \n" +
+        "     Good (+3): \n" +
+        "     Fair (+2): \n" +
+        "\n" +
+        "   STUNTS\n" +
+        "     \n" +
+        "     \n" +
+        "\n" +
+        "   STRESS\n" +
+        "     Physical OOOO\n" +
+        "     Mental OOO\n" +
+        "\n" +
+        "   CONSEQUENCES\n" +
+        "     Mild (2): \n" +
+        "     Moderate (4): \n" +
+        "     Severe (6):\n";
+
+    var text = new fabric.Textbox(sheet, {
+        width: 400,
+        textAlign: 'center',
+        fontSize: 14,
+        left: currentX,
+        top: currentY,
+        backgroundColor: '#fff',
+        maxWidth: 300,
+        minWidth: 100,
+        shadow: 'rgba(0,0,0,0.3) 5px 5px 5px'
+    });
+
+    canvas.add(text);
+}
+
+function addFAESheet() {
+    var sheet = "\n" +
+        "   NAME\n" +
+        "   REFRESH: 3\n" +
+        "\n" +
+        "   ASPECTS\n" +
+        "     High Concept: \n" +
+        "     Trouble: \n" +
+        "     \n" +
+        "     \n" +
+        "\n" +
+        "   APPROACHES\n" +
+        "     Careful: \n" +
+        "     Clever: \n" +
+        "     Flashy: \n" +
+        "     Forceful: \n" +
+        "     Quick: \n" +
+        "     Sneaky: \n" +
+        "\n" +
+        "   STUNTS\n" +
+        "     \n" +
+        "     \n" +
+        "\n" +
+        "   STRESS\n" +
+        "   OOO\n" +
+        "\n" +
+        "   CONSEQUENCES\n" +
+        "     Mild (2): \n" +
+        "     Moderate (4): \n" +
+        "     Severe (6):\n";
+
+    var text = new fabric.Textbox(sheet, {
+        width: 400,
+        textAlign: 'left',
+        fontSize: 14,
+        left: currentX,
+        top: currentY,
+        backgroundColor: '#fff',
         maxWidth: 300,
         minWidth: 100,
         shadow: 'rgba(0,0,0,0.3) 5px 5px 5px'

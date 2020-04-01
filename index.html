@@ -45,42 +45,34 @@
             <div class='title'>Fate objects</div>
             <ul class='nav'>
                 <li>
-                    <a onclick="openAspectInputDialog(0)">Aspect</a>
+                    <a onclick="rollFateDice()">Roll dice!</a>
+                </li>
+                <hr />
+                <li>
+                    <a onclick="addAspect()">Aspect</a>
                 </li>
                 <li>
-                    <a onclick="openAspectInputDialog(1)">Aspect + 1 invoke</a>
-                </li>
-                <li>
-                    <a onclick="openAspectInputDialog(2)">Aspect + 2 invokes</a>
-                </li>
-                <li>
-                    <a onclick="openAspectInputDialog(3)">Aspect + 3 invokes</a>
-                </li>
-                <li>
-                    <a onclick="openAspectInputDialog(4)">Aspect + 4 invokes</a>
+                    <a onclick="addBoost()">Boost</a>
                 </li>
                 <li>
                     <a onclick="addPoint()">Fate point</a>
                 </li>
                 <hr />
                 <li>
-                    <a onclick="rollFateDice()">Roll dice!</a>
-                </li>
-                <hr />
-                <li>
                     <a onclick="addImage('http://rpgworld.net/sheets/ladder.png', 180)">Ladder</a>
                 </li>
                 <li>
-                    <a onclick="addImage('http://rpgworld.net/sheets/Fate-Accelerated-Character-Sheet.png', 600)">FC character sheet</a>
+                    <a onclick="addFCSheet()">FC sheet</a>
                 </li>
                 <li>
-                    <a onclick="addImage('http://rpgworld.net/sheets/Fate-Core-Character-Sheet.png', 600)">FAE character sheet</a>
+                    <a onclick="addFAESheet()">FAE sheet</a>
                 </li>
+
             </ul>
             <div class='title'>Maps</div>
             <ul class='nav'>
               <li>
-                <a onclick="openMapDialog()">Enter URL</a>
+                <a onclick="openMapDialog()">Map from URL</a>
               </li>
               <li>
                 <a onclick="loadMap('http://rpgworld.net/maps/177-wellofhorrors-vtt.jpg')" class="screenshot" rel="http://rpgworld.net/maps/177-wellofhorrors-vtt.jpg">Well Of Horrors</a>
@@ -112,7 +104,7 @@
         </div>
       </div>
       <div id="content" class='content isOpen'>
-        <a class="button"></a><span id="distance"></span>
+        <span id="distance"></span>
         <canvas id="c"></canvas>
       </div>
 

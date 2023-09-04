@@ -201,7 +201,7 @@
                 <a onclick="openTextInputDialog()">Text</a>
               </li>
               <li>
-                <a onclick="openTextInputDialog(true)">Character</a>
+                <a onclick="openTextInputDialog(true, 'Character\'s name')">Character</a>
               </li>
               <li>
                 <a onclick="openImageDialog()">Image from URL</a>
@@ -1222,10 +1222,10 @@
           });
       }
 
-      function openTextInputDialog(styled = false) {
-          $('<form><br/><input type="text" style="z-index:10000; width: 90%" name="maptext"><br></form>').dialog({
+      function openTextInputDialog(styled = false, title = "Enter text") {
+          $('<form><br/><input type="text" style="z-index:10000; width: 50%" name="maptext"><br></form>').dialog({
               modal: true,
-              title: "Enter text",
+              title: title,
               width: "50%",
               maxWidth: "600px",
               buttons: {
@@ -1255,7 +1255,7 @@
       }
 
       function openAspectInputDialog(invokeAmount) {
-          $('<form><br/><input type="text" style="z-index:10000; width: 90%" name="maptext"><br></form>').dialog({
+          $('<form><br/><input type="text" style="z-index:10000; width: 50%" name="maptext"><br></form>').dialog({
               modal: true,
               title: "Aspect phrase",
               width: "50%",
